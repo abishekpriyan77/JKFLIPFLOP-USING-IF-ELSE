@@ -56,29 +56,53 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 
 **PROGRAM**
 ```
-module jk(j,k,clk,q,qbar);
-input j,k,clk;
-output reg q,qbar;
-initial 
-begin
-q=1'b0;
-q=1'b1;
-end
-always@(posedge clk)
-begin
-q<=(j&~q)|(~k&q);
-qbar<=~q;
-end
+
+ 
+ 
+module JK(q, qb,j,k,clock,reset);
+    input j,k,clock,reset;
+    output reg q, qb;
+	 
+always @ (posedge (clock))
+
+    begin 
+        if (!reset)
+            begin
+               q <= q;
+               qb <=qb;
+            end   
+        
+else
+   begin
+	   if(j==0 && k==0)
+		   begin
+			q<=q;
+			qb<=qb;
+			end
+		else if(j!=k)
+		   begin
+			q<=j;
+			qb<=k;
+			end
+		else if(j==1 && k==1)
+		    begin
+			 q<=~q;
+			 qb<=~qb;
+			 end
+	end
+end	
 endmodule
 ```
 
 **RTL LOGIC FOR FLIPFLOPS**
 
-![image](https://github.com/user-attachments/assets/c404f771-527f-4184-b0b3-33363761ff10)
+![image](https://github.com/user-attachments/assets/04cd2b07-3eaf-4118-b3d5-b9fb3c2e0f93)
+
 
 
 **TIMING DIGRAMS FOR FLIP FLOPS**
-![image](https://github.com/user-attachments/assets/1b5318a7-be38-464e-bf1f-909ce7caa1eb)
+![image](https://github.com/user-attachments/assets/5f67ba23-e444-4953-a8b3-3bdb556a2ccd)
+
 
 
 **RESULTS**
